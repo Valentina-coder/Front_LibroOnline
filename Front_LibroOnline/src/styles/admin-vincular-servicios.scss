@@ -1,0 +1,222 @@
+@use 'variables' as *;
+
+.vincular-srv {
+  min-height: 80vh;
+
+  &__intro {
+    color: $color-texto-suave;
+    margin-bottom: 2rem;
+  }
+
+  &__layout {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  &__col {
+    background: $color-blanco;
+    border: 1px solid $color-borde;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  &__col-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid $color-borde;
+    background: $color-fondo-alt;
+
+    h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: $color-texto;
+      margin: 0 0 0.75rem;
+    }
+  }
+
+  &__busqueda {
+    width: 100%;
+    padding: 0.55rem 0.85rem;
+    border: 1.5px solid $color-borde;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    background: $color-blanco;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+      border-color: $color-primario;
+    }
+  }
+
+  &__lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 540px;
+    overflow-y: auto;
+  }
+
+  &__empty {
+    padding: 2rem;
+    text-align: center;
+    color: $color-texto-suave;
+    font-size: 0.9rem;
+  }
+
+  &__item {
+    padding: 0.9rem 1.5rem;
+    border-bottom: 1px solid $color-borde;
+    cursor: pointer;
+    transition: background 0.15s;
+
+    &:last-child { border-bottom: none; }
+    &:hover { background: $color-fondo; }
+
+    &--activo {
+      background: rgba($color-primario, 0.08);
+      border-left: 3px solid $color-primario;
+      padding-left: calc(1.5rem - 3px);
+    }
+  }
+
+  &__item-nombre {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: $color-texto;
+  }
+
+  &__item-rut {
+    font-size: 0.8rem;
+    color: $color-texto-suave;
+    margin-top: 2px;
+  }
+
+  &__item-srvcount {
+    font-size: 0.78rem;
+    color: $color-primario;
+    margin-top: 4px;
+    font-weight: 600;
+  }
+
+  // Columna derecha
+  &__placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    padding: 2rem;
+
+    p {
+      color: $color-texto-suave;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+  }
+
+  &__bulk-btns {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  &__servicios {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 460px;
+    overflow-y: auto;
+  }
+
+  &__srv-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid $color-borde;
+    cursor: pointer;
+    transition: background 0.15s;
+
+    &:last-child { border-bottom: none; }
+    &:hover { background: $color-fondo; }
+
+    &--activo {
+      background: rgba($color-primario, 0.06);
+    }
+  }
+
+  &__checkbox {
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    accent-color: $color-primario;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  &__srv-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  &__srv-nombre {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: $color-texto;
+  }
+
+  &__srv-desc {
+    font-size: 0.82rem;
+    color: $color-texto-suave;
+    line-height: 1.4;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid $color-borde;
+    background: $color-fondo-alt;
+  }
+
+  &__count {
+    font-size: 0.88rem;
+    color: $color-texto-suave;
+  }
+
+  // Modal detalle
+  &__confirm-detalle {
+    background: $color-fondo;
+    border: 1px solid $color-borde;
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    font-size: 0.9rem;
+
+    p { margin: 0 0 0.5rem; }
+
+    ul {
+      margin: 0;
+      padding-left: 1.2rem;
+
+      li {
+        margin-bottom: 3px;
+        color: $color-texto;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .vincular-srv__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .vincular-srv__lista,
+  .vincular-srv__servicios {
+    max-height: 300px;
+  }
+}

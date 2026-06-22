@@ -1,0 +1,131 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.agenda-page {
+  @include section-padding;
+
+  .container { @include container; }
+
+  &__header {
+    @include flex-between;
+    margin-bottom: $spacing-xl;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+
+    h1 { font-family: $font-display; }
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    margin-bottom: $spacing-lg;
+
+    button {
+      @include flex-center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1.5px solid $color-borde;
+      background: $color-blanco;
+      color: $color-texto;
+      cursor: pointer;
+      transition: $transition;
+
+      &:hover { background: $color-primario; color: $color-blanco; border-color: $color-primario; }
+    }
+
+    h2 {
+      font-family: $font-display;
+      font-size: 1.4rem;
+      min-width: 200px;
+      text-align: center;
+    }
+  }
+
+  &__calendar {
+    @include card-base;
+    padding: $spacing-lg;
+    margin-bottom: $spacing-xl;
+  }
+
+  &__calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+
+  &__day-header {
+    text-align: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: $color-texto-suave;
+    padding: $spacing-xs 0;
+    letter-spacing: 0.5px;
+  }
+
+  &__day {
+    min-height: 80px;
+    border: 1px solid $color-borde;
+    border-radius: $radius-sm;
+    padding: $spacing-xs;
+    cursor: pointer;
+    transition: $transition;
+    position: relative;
+
+    &:hover { background: $color-fondo-alt; }
+    &--empty { background: transparent; border-color: transparent; cursor: default; }
+    &--today { border-color: $color-primario; background: rgba($color-primario, 0.05); }
+    &--selected { border-color: $color-primario; background: rgba($color-primario, 0.1); }
+
+    .day-number {
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: $color-texto;
+    }
+  }
+
+  &__bloque-chip {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: $radius-full;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &--libre    { background: #D1FAE5; color: #065F46; }
+    &--bloqueado { background: #FEE2E2; color: #991B1B; }
+    &--ocupado  { background: #E0E7FF; color: #3730A3; }
+  }
+
+  &__day-panel {
+    @include card-base;
+    padding: $spacing-xl;
+
+    h3 { font-family: $font-display; margin-bottom: $spacing-lg; }
+  }
+
+  &__bloques-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+  }
+
+  &__bloque-item {
+    @include flex-between;
+    padding: $spacing-sm $spacing-md;
+    border-radius: $radius-md;
+    border: 1px solid $color-borde;
+    background: $color-fondo;
+
+    .hora { font-weight: 600; color: $color-texto; font-size: 0.9rem; }
+
+    .actions {
+      display: flex;
+      gap: $spacing-sm;
+    }
+  }
+}

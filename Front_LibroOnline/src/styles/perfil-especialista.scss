@@ -1,0 +1,119 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.perfil-especialista {
+  @include section-padding;
+
+  .container { @include container; }
+
+  &__layout {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: $spacing-xxl;
+    align-items: start;
+
+    @include tablet { grid-template-columns: 1fr; }
+  }
+
+  &__sidebar {
+    @include card-base;
+    padding: $spacing-xl;
+    text-align: center;
+    position: sticky;
+    top: calc($navbar-height + $spacing-lg);
+  }
+
+  &__foto {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid $color-primario-light;
+    margin: 0 auto $spacing-lg;
+    display: block;
+  }
+
+  &__nombre {
+    font-family: $font-display;
+    font-size: 1.6rem;
+    margin-bottom: $spacing-xs;
+  }
+
+  &__titulo {
+    color: $color-primario;
+    font-weight: 600;
+    margin-bottom: $spacing-sm;
+  }
+
+  &__experiencia {
+    color: $color-texto-suave;
+    font-size: 0.9rem;
+    margin-bottom: $spacing-lg;
+  }
+
+  &__redes {
+    display: flex;
+    gap: $spacing-sm;
+    justify-content: center;
+    margin-bottom: $spacing-lg;
+
+    a {
+      @include flex-center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: $color-fondo-alt;
+      color: $color-texto-suave;
+      font-size: 1.1rem;
+      transition: $transition;
+
+      &:hover { background: $color-primario; color: $color-blanco; }
+    }
+  }
+
+  &__servicios {
+    text-align: left;
+    border-top: 1px solid $color-borde;
+    padding-top: $spacing-lg;
+    margin-top: $spacing-lg;
+
+    h4 { margin-bottom: $spacing-md; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: $color-texto-suave; }
+  }
+
+  &__servicios-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: $spacing-sm;
+      font-size: 0.9rem;
+      color: $color-texto;
+      padding: $spacing-xs 0;
+      border-bottom: 1px solid $color-borde;
+
+      &:last-child { border-bottom: none; }
+
+      &::before {
+        content: '•';
+        color: $color-primario;
+        font-size: 1.1rem;
+        line-height: 1;
+      }
+    }
+  }
+
+  &__main {
+    h2 { margin-bottom: $spacing-md; }
+    p  { color: $color-texto-suave; line-height: 1.8; margin-bottom: $spacing-md; }
+  }
+
+  &__cta {
+    margin-top: $spacing-xl;
+  }
+}

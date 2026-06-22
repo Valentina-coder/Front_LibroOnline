@@ -1,0 +1,166 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.mi-perfil {
+  @include section-padding;
+
+  .container { @include container; max-width: 800px; }
+
+  // ── Header con avatar ──────────────────────────────────────────────────────
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: $spacing-xl;
+    background: $color-blanco;
+    border: 1.5px solid $color-borde;
+    border-radius: $radius-lg;
+    padding: $spacing-xl;
+    margin-bottom: $spacing-xl;
+    box-shadow: $shadow-sm;
+
+    @include mobile { flex-direction: column; text-align: center; }
+  }
+
+  &__avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 3px solid $color-borde;
+  }
+
+  &__header-info {
+    h2 {
+      font-family: $font-display;
+      font-size: 1.5rem;
+      margin-bottom: 4px;
+    }
+  }
+
+  &__email {
+    font-size: 0.88rem;
+    color: $color-texto-suave;
+    margin-bottom: 2px;
+  }
+
+  &__rut {
+    font-size: 0.85rem;
+    color: $color-texto-suave;
+  }
+
+  // ── Tabs ───────────────────────────────────────────────────────────────────
+  &__tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: $spacing-xl;
+    border-bottom: 2px solid $color-borde;
+  }
+
+  &__tab {
+    padding: $spacing-sm $spacing-xl;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: $color-texto-suave;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: $transition;
+
+    &--active { color: $color-primario; border-bottom-color: $color-primario; }
+    &:hover:not(&--active) { color: $color-texto; }
+  }
+
+  // ── Sección de formulario ─────────────────────────────────────────────────
+  &__section {
+    @include card-base;
+    padding: $spacing-xl;
+
+    h3 {
+      font-family: $font-display;
+      font-size: 1.4rem;
+      margin-bottom: $spacing-md;
+      padding-bottom: $spacing-md;
+      border-bottom: 1px solid $color-borde;
+    }
+  }
+
+  &__subtitle {
+    font-size: 0.9rem;
+    color: $color-texto-suave;
+    margin-bottom: $spacing-lg;
+    line-height: 1.5;
+  }
+
+  &__form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-md;
+
+    @include mobile { grid-template-columns: 1fr; }
+  }
+
+  // ── Foto upload ───────────────────────────────────────────────────────────
+  &__foto-upload {
+    display: flex;
+    align-items: center;
+    gap: $spacing-lg;
+    margin-top: 4px;
+
+    @include mobile { flex-direction: column; align-items: flex-start; }
+  }
+
+  &__foto-preview {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid $color-borde;
+    flex-shrink: 0;
+  }
+
+  &__foto-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__foto-nombre {
+    font-size: 0.8rem;
+    color: $color-texto-suave;
+  }
+
+  &__foto-hint {
+    font-size: 0.78rem;
+    color: $color-texto-suave;
+    margin: 0;
+  }
+
+  // ── Info box ──────────────────────────────────────────────────────────────
+  &__info-box {
+    background: #F5F0EB;
+    border-left: 3px solid $color-borde;
+    border-radius: $radius-sm;
+    padding: $spacing-md $spacing-lg;
+    margin: $spacing-lg 0;
+
+    p {
+      font-size: 0.85rem;
+      color: $color-texto-suave;
+      margin: 0;
+      line-height: 1.5;
+    }
+  }
+
+  // ── Acciones ──────────────────────────────────────────────────────────────
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: $spacing-md;
+    margin-top: $spacing-lg;
+    padding-top: $spacing-md;
+    border-top: 1px solid $color-borde;
+  }
+}

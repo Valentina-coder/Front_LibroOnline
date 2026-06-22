@@ -1,0 +1,74 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.mis-sesiones {
+  @include section-padding;
+
+  .container { @include container; }
+
+  &__tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid $color-borde;
+    margin-bottom: $spacing-xl;
+  }
+
+  &__tab {
+    padding: $spacing-sm $spacing-xl;
+    font-weight: 600;
+    color: $color-texto-suave;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    cursor: pointer;
+    transition: $transition;
+
+    &--active { color: $color-primario; border-bottom-color: $color-primario; }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+  }
+
+  // ── Navegación semanal ────────────────────────────────────────────────────────
+  &__semana-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-md;
+    margin-bottom: $spacing-lg;
+    background: $color-fondo;
+    border-radius: $radius-md;
+    padding: $spacing-sm $spacing-lg;
+    border: 1.5px solid $color-borde;
+  }
+
+  &__semana-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1.5px solid $color-borde;
+    background: $color-blanco;
+    color: $color-texto;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: $transition;
+    flex-shrink: 0;
+
+    &:hover { border-color: $color-primario; color: $color-primario; }
+  }
+
+  &__semana-label {
+    font-weight: 600;
+    color: $color-texto;
+    font-size: 0.95rem;
+    text-align: center;
+    min-width: 240px;
+  }
+}

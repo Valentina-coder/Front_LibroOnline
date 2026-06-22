@@ -1,0 +1,912 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ── Layout principal ───────────────────────────────────────────────────────────
+
+.mi-agenda {
+  &__header {
+    @include flex-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  &__acciones {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  // ── Tabs de vista ────────────────────────────────────────────────────────────
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    button {
+      background: none;
+      border: 1px solid $color-borde;
+      border-radius: $radius-sm;
+      width: 36px;
+      height: 36px;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: $color-texto;
+      transition: $transition;
+      line-height: 1;
+
+      &:hover { background: $color-primario; color: white; border-color: $color-primario; }
+    }
+
+    .btn-hoy {
+      width: auto;
+      padding: 0 14px;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+  }
+
+  &__mes {
+    font-family: $font-display;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: $color-texto;
+    text-transform: capitalize;
+    flex: 1;
+    text-align: center;
+    min-width: 180px;
+  }
+
+  // ── Cuerpo ───────────────────────────────────────────────────────────────────
+
+  &__body {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 1.5rem;
+    align-items: start;
+
+    @include tablet { grid-template-columns: 1fr; }
+
+    &--semana { grid-template-columns: 1fr 280px; @include tablet { grid-template-columns: 1fr; } }
+    &--dia    { grid-template-columns: 1fr; }
+  }
+
+  &__calendario {
+    background: white;
+    border-radius: $radius-md;
+    box-shadow: $shadow-sm;
+    padding: 1.5rem;
+    overflow: hidden;
+
+    &--semana { padding: 0; overflow-x: auto; }
+  }
+
+  // ── Mes: grilla ──────────────────────────────────────────────────────────────
+
+  &__semana-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 0.5rem;
+
+    span {
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: $color-texto-suave;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.25rem 0;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    position: relative;
+    min-height: 300px;
+  }
+
+  &__celda {
+    border-radius: $radius-sm;
+    padding: 4px;
+    min-height: 64px;
+    cursor: pointer;
+    transition: background $transition;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    &--vacia { cursor: default; background: transparent !important; }
+    &--no-lab { background: rgba($color-borde, 0.18); }
+
+    &:not(&--vacia):hover { background: $color-fondo; }
+
+    &--hoy .mi-agenda__dia-num {
+      background: $color-primario;
+      color: white;
+      border-radius: 50%;
+      width: 22px; height: 22px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    &--seleccionada {
+      background: rgba($color-primario, 0.12) !important;
+      outline: 2px solid $color-primario;
+    }
+  }
+
+  &__dia-num {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: $color-texto;
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  &__chips { display: flex; flex-wrap: wrap; gap: 2px; margin-top: 2px; }
+
+  &__chip {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+
+    &--libre    { background: $color-primario; }
+    &--bloqueado{ background: #888; }
+    &--ocupado  { background: $color-secundario; }
+  }
+
+  &__chip-mas { font-size: 0.6rem; color: $color-texto-suave; }
+
+  &__leyenda {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid $color-borde;
+
+    span { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: $color-texto-suave; }
+    i    { display: inline-block; width: 10px; height: 10px; border-radius: 50%; }
+  }
+
+  // ── Panel lateral ─────────────────────────────────────────────────────────────
+
+  &__panel {
+    background: white;
+    border-radius: $radius-md;
+    box-shadow: $shadow-sm;
+    padding: 1.5rem;
+    min-height: 300px;
+
+    &-header {
+      @include flex-between;
+      align-items: center;
+      margin-bottom: 1rem;
+
+      h3 {
+        font-family: $font-display;
+        font-size: 1.1rem;
+        color: $color-texto;
+        text-transform: capitalize;
+      }
+    }
+
+    &-vacio { color: $color-texto-suave; font-size: 0.9rem; text-align: center; margin-top: 2rem; }
+  }
+
+  &__bloque {
+    border-radius: $radius-sm;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.75rem;
+    border-left: 4px solid transparent;
+    background: $color-fondo;
+
+    &--libre    { border-left-color: $color-primario; }
+    &--bloqueado{ border-left-color: #888; }
+    &--ocupado  { border-left-color: $color-secundario; }
+
+    &-info {
+      @include flex-between;
+      align-items: center;
+      margin-bottom: 0.25rem;
+
+      .hora { font-weight: 600; font-size: 0.9rem; color: $color-texto; }
+    }
+
+    &-meta { font-size: 0.75rem; color: $color-texto-suave; display: block; margin-bottom: 0.25rem; }
+
+    &-paciente {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: $color-texto;
+      margin-bottom: 0.15rem;
+    }
+
+    &-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+
+      button {
+        background: none;
+        border: 1px solid $color-borde;
+        border-radius: $radius-sm;
+        padding: 2px 10px;
+        font-size: 0.78rem;
+        cursor: pointer;
+        color: $color-texto;
+        transition: $transition;
+
+        &:hover { background: $color-primario; color: white; border-color: $color-primario; }
+        &.eliminar:hover { background: $color-error; border-color: $color-error; }
+      }
+    }
+  }
+}
+
+// ── Vista: Tabs ───────────────────────────────────────────────────────────────
+
+.vista-tabs {
+  display: flex;
+  border: 1px solid $color-borde;
+  border-radius: $radius-sm;
+  overflow: hidden;
+}
+
+.vista-tab {
+  border: none;
+  background: white;
+  padding: 7px 16px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: $color-texto-suave;
+  transition: $transition;
+  text-transform: capitalize;
+
+  &:not(:last-child) { border-right: 1px solid $color-borde; }
+  &--activo { background: $color-primario; color: white; }
+  &:hover:not(&--activo) { background: $color-fondo; }
+}
+
+// ── Vista: Semana ─────────────────────────────────────────────────────────────
+
+$col-time: 52px;
+$row-h:    48px; // altura de 30 minutos
+
+.semana-grid {
+  background: white;
+  border-radius: $radius-md;
+  overflow: hidden;
+  min-width: 600px;
+
+  &__header {
+    display: grid;
+    grid-template-columns: $col-time repeat(7, 1fr);
+    border-bottom: 1px solid $color-borde;
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 2;
+  }
+
+  &__time-col {
+    width: $col-time;
+    border-right: 1px solid $color-borde;
+    flex-shrink: 0;
+  }
+
+  &__dia-header {
+    padding: 10px 4px;
+    text-align: center;
+    cursor: pointer;
+    border-left: 1px solid $color-borde;
+    transition: background $transition;
+
+    &:hover         { background: $color-fondo; }
+    &.seleccionado  { background: rgba($color-primario, 0.1); }
+    &.hoy { .semana-dia-num { background: $color-primario; color: white; border-radius: 50%; } }
+    &.no-lab        { background: rgba($color-borde, 0.15); }
+  }
+
+  .semana-dia-nombre {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: $color-texto-suave;
+  }
+
+  .semana-dia-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px; height: 28px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: $color-texto;
+    border-radius: 50%;
+    margin-top: 2px;
+  }
+
+  &__body {
+    display: grid;
+    grid-template-columns: $col-time repeat(7, 1fr);
+    height: 29 * $row-h; // 07:00 → 21:30
+    overflow-y: auto;
+    position: relative;
+  }
+
+  &__time-col {
+    position: relative;
+    border-right: 1px solid $color-borde;
+
+    .semana-grid__hora-label {
+      position: absolute;
+      width: 100%;
+      text-align: right;
+      padding-right: 6px;
+      font-size: 0.65rem;
+      color: $color-texto-suave;
+      transform: translateY(-50%);
+      line-height: 1;
+    }
+    @for $i from 0 through 14 {
+      .semana-grid__hora-label:nth-child(#{$i + 1}) { top: $i * 2 * $row-h; }
+    }
+  }
+
+  &__col {
+    position: relative;
+    border-left: 1px solid $color-borde;
+
+    &--no-lab { background: rgba($color-borde, 0.12); }
+  }
+
+  &__linea {
+    height: $row-h;
+    border-bottom: 1px dashed rgba($color-borde, 0.5);
+
+    &--hora { border-bottom-color: $color-borde; }
+  }
+}
+
+.semana-bloque {
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  border-radius: $radius-sm;
+  padding: 2px 5px;
+  overflow: hidden;
+  cursor: default;
+  font-size: 0.7rem;
+  z-index: 1;
+
+  &--libre    { background: rgba($color-primario, 0.2); border-left: 3px solid $color-primario; color: $color-primario-dark; }
+  &--bloqueado{ background: rgba(#888, 0.15); border-left: 3px solid #888; color: #555; }
+  &--ocupado  { background: rgba($color-secundario, 0.2); border-left: 3px solid $color-secundario; color: #A07A54; }
+
+  &__hora  { display: block; font-weight: 700; line-height: 1.3; }
+  &__extra { display: block; font-size: 0.65rem; opacity: 0.85; }
+}
+
+// ── Vista: Día ────────────────────────────────────────────────────────────────
+
+.dia-grid {
+  background: white;
+  border-radius: $radius-md;
+  box-shadow: $shadow-sm;
+  overflow: hidden;
+  min-width: 400px;
+
+  &__info {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid $color-borde;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    strong { font-family: $font-display; font-size: 1.2rem; text-transform: capitalize; color: $color-texto; }
+  }
+
+  &__horario {
+    font-size: 0.82rem;
+    color: $color-texto-suave;
+    &--nolaboral { color: $color-advertencia; }
+  }
+
+  &__body {
+    display: grid;
+    grid-template-columns: $col-time 1fr;
+    height: 29 * $row-h;
+    overflow-y: auto;
+  }
+
+  &__time-col {
+    border-right: 1px solid $color-borde;
+    position: relative;
+
+    .dia-grid__hora-label {
+      position: absolute;
+      width: 100%;
+      text-align: right;
+      padding-right: 8px;
+      font-size: 0.65rem;
+      color: $color-texto-suave;
+      transform: translateY(-50%);
+      line-height: 1;
+    }
+    @for $i from 0 through 14 {
+      .dia-grid__hora-label:nth-child(#{$i + 1}) { top: $i * 2 * $row-h; }
+    }
+  }
+
+  &__col {
+    position: relative;
+  }
+
+  &__linea {
+    height: $row-h;
+    border-bottom: 1px dashed rgba($color-borde, 0.5);
+    &--hora { border-bottom-color: $color-borde; }
+  }
+
+  &__vacio {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-texto-suave;
+    font-size: 0.9rem;
+  }
+}
+
+.dia-bloque {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  border-radius: $radius-sm;
+  padding: 6px 10px;
+  overflow: hidden;
+  cursor: default;
+  z-index: 1;
+
+  &--libre    { background: rgba($color-primario, 0.15); border-left: 4px solid $color-primario; }
+  &--bloqueado{ background: rgba(#888, 0.12); border-left: 4px solid #888; }
+  &--ocupado  { background: rgba($color-secundario, 0.15); border-left: 4px solid $color-secundario; }
+
+  &__hora    { display: block; font-weight: 700; font-size: 0.85rem; color: $color-texto; }
+  &__estado  { display: block; font-size: 0.75rem; color: $color-texto-suave; }
+  &__paciente{ display: block; font-size: 0.78rem; font-weight: 600; color: $color-texto; margin-top: 2px; }
+  &__meta    { display: block; font-size: 0.72rem; color: $color-texto-suave; margin-top: 1px; }
+}
+
+// ── Wizard: pasos ─────────────────────────────────────────────────────────────
+
+.wizard-steps {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid $color-borde;
+  margin: -1.5rem -1.5rem 0;
+  padding: 0 1.5rem;
+  overflow-x: auto;
+}
+
+.wizard-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px 12px 0;
+  font-size: 0.82rem;
+  color: $color-texto-suave;
+  white-space: nowrap;
+
+  &__num {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: $color-fondo-alt;
+    color: $color-texto-suave;
+    flex-shrink: 0;
+  }
+
+  &--activo {
+    color: $color-primario;
+    font-weight: 600;
+
+    .wizard-step__num {
+      background: $color-primario;
+      color: white;
+    }
+  }
+
+  &--listo {
+    color: $color-exito;
+    .wizard-step__num { background: $color-exito; color: white; }
+  }
+}
+
+.wizard-paso { display: flex; flex-direction: column; gap: 1.25rem; }
+
+.wizard-hint {
+  font-size: 0.83rem;
+  color: $color-texto-suave;
+  background: $color-fondo;
+  padding: 0.5rem 0.75rem;
+  border-radius: $radius-sm;
+}
+
+// ── Wizard: tabs de modo ──────────────────────────────────────────────────────
+
+.modo-tabs {
+  display: flex;
+  border: 1px solid $color-borde;
+  border-radius: $radius-sm;
+  overflow: hidden;
+  width: fit-content;
+}
+
+.modo-tab {
+  border: none;
+  background: white;
+  padding: 7px 20px;
+  font-size: 0.83rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: $color-texto-suave;
+  transition: $transition;
+
+  &:not(:last-child) { border-right: 1px solid $color-borde; }
+  &--activo { background: $color-primario; color: white; }
+  &:hover:not(&--activo) { background: $color-fondo; }
+}
+
+// ── Mini calendario multi-selección ──────────────────────────────────────────
+
+.mini-cal {
+  user-select: none;
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+
+    span {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: $color-texto;
+      text-transform: capitalize;
+    }
+
+    button {
+      background: none;
+      border: 1px solid $color-borde;
+      border-radius: $radius-sm;
+      width: 28px; height: 28px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: $color-texto;
+      transition: $transition;
+      &:hover { background: $color-primario; color: white; border-color: $color-primario; }
+    }
+  }
+
+  &__header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 4px;
+
+    span {
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: $color-texto-suave;
+      text-transform: uppercase;
+      padding: 2px 0;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+  }
+
+  &__dia {
+    border: none;
+    background: transparent;
+    border-radius: $radius-sm;
+    height: 32px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    color: $color-texto;
+    transition: background 0.12s;
+    font-weight: 500;
+
+    &:hover:not(:disabled)  { background: $color-fondo-alt; }
+    &--sel  { background: $color-primario !important; color: white !important; font-weight: 700; }
+    &--hoy  { outline: 2px solid $color-primario; outline-offset: -2px; }
+    &--finde{ color: $color-texto-suave; }
+    &--pasado { color: rgba($color-texto-suave, 0.35); cursor: default; }
+  }
+
+  &__resumen {
+    margin-top: 0.5rem;
+    font-size: 0.82rem;
+    color: $color-primario;
+    font-weight: 600;
+    text-align: center;
+  }
+}
+
+// ── Wizard: pills de duración / modalidad ─────────────────────────────────────
+
+.duracion-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.duracion-pill {
+  border: 2px solid $color-borde;
+  border-radius: $radius-sm;
+  background: white;
+  padding: 6px 16px;
+  font-size: 0.83rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: $color-texto;
+  transition: $transition;
+
+  &:hover:not(&--activo):not(&--bloq) { border-color: $color-primario; color: $color-primario; }
+  &--activo { border-color: $color-primario; background: $color-primario; color: white; }
+
+  // Variante bloqueado (gris oscuro)
+  &--bloq {
+    border-color: #888 !important;
+    background: #888 !important;
+    color: white !important;
+  }
+}
+
+.bloque-bloq-hint {
+  margin-top: 0.5rem;
+  font-size: 0.82rem;
+  color: #666;
+  background: rgba(#888, 0.08);
+  border: 1px solid rgba(#888, 0.25);
+  border-radius: $radius-sm;
+  padding: 8px 12px;
+  line-height: 1.4;
+}
+
+// ── Hora de fin calculada ─────────────────────────────────────────────────────
+
+.hora-fin-display {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba($color-primario, 0.08);
+  border: 1px solid rgba($color-primario, 0.3);
+  border-radius: $radius-sm;
+  padding: 10px 16px;
+
+  &__label { font-size: 0.82rem; color: $color-texto-suave; }
+  &__valor  { font-size: 1.3rem; font-weight: 700; color: $color-primario; font-family: $font-display; }
+}
+
+// ── Preview slots lote ────────────────────────────────────────────────────────
+
+.slots-preview {
+  background: rgba($color-secundario, 0.1);
+  border: 1px solid rgba($color-secundario, 0.3);
+  border-radius: $radius-sm;
+  padding: 10px 16px;
+  font-size: 0.88rem;
+  color: $color-texto;
+
+  strong { color: $color-secundario; }
+}
+
+// ── Vista previa de bloques en wizard ─────────────────────────────────────────
+
+.bloques-strip {
+  background: $color-fondo;
+  border: 1px solid $color-borde;
+  border-radius: $radius-sm;
+  padding: 0.6rem 0.85rem;
+
+  &__label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: $color-texto-suave;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  &__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  &__item {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: $radius-sm;
+    font-size: 0.73rem;
+    font-weight: 600;
+    border: 1.5px solid;
+    white-space: nowrap;
+    transition: $transition;
+
+    &--libre {
+      background: rgba($color-primario, 0.1);
+      border-color: rgba($color-primario, 0.35);
+      color: $color-primario-dark;
+    }
+
+    &--bloqueado {
+      background: rgba(#888, 0.1);
+      border-color: rgba(#888, 0.35);
+      color: #555;
+    }
+
+    &--almuerzo {
+      background: rgba(#E88C30, 0.12);
+      border-color: #E88C30;
+      color: #8B4500;
+      font-style: italic;
+    }
+  }
+}
+
+// ── Sección almuerzo ──────────────────────────────────────────────────────────
+
+.almuerzo-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: rgba(#E88C30, 0.05);
+  border: 1px solid rgba(#E88C30, 0.25);
+  border-radius: $radius-sm;
+  padding: 0.85rem 1rem;
+}
+
+// ── Confirmación > 90 min ─────────────────────────────────────────────────────
+
+.confirm-overlay {
+  background: rgba($color-advertencia, 0.08);
+  border: 2px solid $color-advertencia;
+  border-radius: $radius-md;
+  padding: 1rem 1.25rem;
+
+  p { font-size: 0.9rem; color: $color-texto; margin-bottom: 0.75rem; line-height: 1.5; }
+
+  &__btns { display: flex; gap: 0.75rem; justify-content: flex-end; }
+}
+
+// ── Resumen de confirmación ───────────────────────────────────────────────────
+
+.resumen-bloque {
+  border: 1px solid $color-borde;
+  border-radius: $radius-md;
+  overflow: hidden;
+}
+
+.resumen-fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 10px 16px;
+  font-size: 0.88rem;
+
+  & > span:first-child {
+    color: $color-texto-suave;
+    font-weight: 600;
+    min-width: 100px;
+    flex-shrink: 0;
+  }
+
+  & > *:last-child { text-align: right; color: $color-texto; }
+
+  &:not(:last-child) { border-bottom: 1px solid $color-borde; }
+  &:nth-child(odd)   { background: $color-fondo; }
+
+  &--fechas > *:last-child { display: flex; flex-wrap: wrap; gap: 4px; justify-content: flex-end; }
+}
+
+.fecha-chip {
+  display: inline-block;
+  background: rgba($color-primario, 0.12);
+  color: $color-primario-dark;
+  border-radius: $radius-sm;
+  padding: 2px 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+// ── Horario hint ──────────────────────────────────────────────────────────────
+
+.horario-hint {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.78rem;
+  color: $color-primario;
+  font-weight: 600;
+}
+
+// ── Checkbox label ────────────────────────────────────────────────────────────
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: $color-texto;
+
+  input[type="checkbox"] {
+    width: 16px; height: 16px;
+    accent-color: $color-primario;
+    cursor: pointer;
+  }
+}
+
+// ── Modal helpers ─────────────────────────────────────────────────────────────
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+}
+
+.modal-hint {
+  font-size: 0.85rem;
+  color: $color-texto-suave;
+  background: $color-fondo;
+  padding: 0.5rem 0.75rem;
+  border-radius: $radius-sm;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+// ── Misc helpers ──────────────────────────────────────────────────────────────
+
+.btn--sm {
+  padding: 0.3rem 0.8rem !important;
+  font-size: 0.82rem !important;
+}
+
+.loading-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  width: 100%;
+}

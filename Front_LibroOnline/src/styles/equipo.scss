@@ -1,0 +1,38 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.equipo-page {
+  .container { @include container; }
+
+  &__filters {
+    display: flex;
+    gap: $spacing-md;
+    margin-bottom: $spacing-xl;
+    align-items: center;
+    flex-wrap: wrap;
+
+    label { font-weight: 600; color: $color-texto-suave; font-size: 0.9rem; }
+
+    select {
+      padding: 8px $spacing-md;
+      border: 1.5px solid $color-borde;
+      border-radius: $radius-md;
+      background: $color-blanco;
+      color: $color-texto;
+      font-family: $font-body;
+      cursor: pointer;
+      outline: none;
+
+      &:focus { border-color: $color-primario; }
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-lg;
+
+    @include tablet { grid-template-columns: repeat(2, 1fr); }
+    @include mobile { grid-template-columns: 1fr; }
+  }
+}

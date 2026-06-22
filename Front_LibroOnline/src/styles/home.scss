@@ -1,0 +1,253 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  @include flex-center;
+  background: linear-gradient(135deg, $color-fondo-dark 0%, #1a2a1b 50%, #2C3E2D 100%);
+  overflow: hidden;
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba($color-primario, 0.2) 0%, transparent 70%);
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: $spacing-xl $spacing-lg;
+    max-width: 800px;
+    margin: 0 auto;
+    animation: fadeInUp 0.8s ease forwards;
+  }
+
+  &__badge {
+    display: inline-block;
+    background: rgba($color-primario, 0.2);
+    color: $color-primario-light;
+    border: 1px solid rgba($color-primario, 0.4);
+    padding: 6px 16px;
+    border-radius: $radius-full;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: $spacing-lg;
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    color: $color-blanco;
+    line-height: 1.1;
+    margin-bottom: $spacing-lg;
+
+    span {
+      color: $color-primario-light;
+    }
+  }
+
+  &__subtitle {
+    font-size: 1.2rem;
+    color: rgba($color-blanco, 0.8);
+    margin-bottom: $spacing-xl;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.75;
+  }
+
+  &__actions {
+    display: flex;
+    gap: $spacing-md;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  &__cta-primary {
+    @include btn-primary;
+    font-size: 1rem;
+    padding: $spacing-md $spacing-xl;
+  }
+
+  &__cta-secondary {
+    @include btn-base;
+    color: $color-blanco;
+    border-color: rgba($color-blanco, 0.5);
+    font-size: 1rem;
+    padding: $spacing-md $spacing-xl;
+
+    &:hover {
+      background: rgba($color-blanco, 0.1);
+      border-color: $color-blanco;
+    }
+  }
+
+  &__scroll {
+    position: absolute;
+    bottom: $spacing-xl;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba($color-blanco, 0.5);
+    font-size: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-xs;
+    animation: bounce 2s infinite;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(8px); }
+}
+
+// Sección servicios destacados
+.home-servicios {
+  @include section-padding;
+  background: $color-fondo-alt;
+
+  &__header {
+    text-align: center;
+    margin-bottom: $spacing-xl;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $spacing-lg;
+
+    @include tablet { grid-template-columns: repeat(2, 1fr); }
+    @include mobile { grid-template-columns: 1fr; }
+  }
+}
+
+// Sobre Karma
+.home-sobre {
+  @include section-padding;
+
+  .container {
+    @include container;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-xxl;
+    align-items: center;
+
+    @include mobile { grid-template-columns: 1fr; }
+  }
+
+  &__content {
+    h2 { margin-bottom: $spacing-md; }
+    p  { margin-bottom: $spacing-lg; color: $color-texto-suave; }
+  }
+
+  &__image {
+    img, .img-placeholder {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      border-radius: $radius-lg;
+      box-shadow: $shadow-lg;
+    }
+
+    .img-placeholder {
+      background: linear-gradient(135deg, $color-primario-light, $color-primario);
+      @include flex-center;
+      color: $color-blanco;
+      font-family: $font-display;
+      font-size: 1.5rem;
+    }
+  }
+}
+
+// Equipo preview
+.home-equipo {
+  @include section-padding;
+  background: $color-fondo-alt;
+
+  &__header {
+    text-align: center;
+    margin-bottom: $spacing-xl;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-lg;
+    margin-bottom: $spacing-xl;
+
+    @include mobile { grid-template-columns: 1fr; }
+  }
+
+  &__footer {
+    text-align: center;
+  }
+}
+
+// Testimonios
+.home-testimonios {
+  @include section-padding;
+
+  &__header {
+    text-align: center;
+    margin-bottom: $spacing-xl;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-lg;
+
+    @include tablet { grid-template-columns: 1fr; }
+  }
+}
+
+.testimonio-card {
+  @include card-base;
+  padding: $spacing-xl;
+  position: relative;
+
+  &__quote {
+    font-family: $font-display;
+    font-size: 4rem;
+    color: $color-primario-light;
+    line-height: 0.5;
+    margin-bottom: $spacing-md;
+  }
+
+  &__text {
+    color: $color-texto-suave;
+    font-style: italic;
+    margin-bottom: $spacing-lg;
+    line-height: 1.75;
+  }
+
+  &__author {
+    font-weight: 700;
+    color: $color-texto;
+  }
+}
+
+// CTA Final
+.home-cta {
+  background: $color-fondo-dark;
+  padding: $spacing-xxl 0;
+  text-align: center;
+
+  h2 {
+    color: $color-blanco;
+    font-family: $font-display;
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: $spacing-md;
+  }
+
+  p {
+    color: rgba($color-blanco, 0.75);
+    margin-bottom: $spacing-xl;
+    font-size: 1.1rem;
+  }
+}

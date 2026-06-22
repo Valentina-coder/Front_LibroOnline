@@ -1,0 +1,47 @@
+@use 'variables' as *;
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-display;
+  color: $color-texto;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+h2 { font-size: clamp(1.6rem, 3vw, 2.5rem); }
+h3 { font-size: clamp(1.3rem, 2.5vw, 2rem); }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+
+p {
+  font-family: $font-body;
+  line-height: 1.75;
+  color: $color-texto;
+}
+
+strong { font-weight: 700; }
+small  { font-size: 0.85rem; color: $color-texto-suave; }
+
+.text-center   { text-align: center; }
+.text-muted    { color: $color-texto-suave; }
+.text-primario { color: $color-primario; }
+.text-display  { font-family: $font-display; }
+
+.section-title {
+  font-family: $font-display;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  color: $color-texto;
+  margin-bottom: $spacing-md;
+
+  span {
+    color: $color-primario;
+  }
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: $color-texto-suave;
+  max-width: 600px;
+  line-height: 1.75;
+}

@@ -1,0 +1,390 @@
+@use 'variables' as *;
+
+.mi-perf-esp {
+  min-height: 80vh;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background: $color-fondo-alt;
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+
+    @media (max-width: 640px) {
+      flex-wrap: wrap;
+    }
+  }
+
+  &__foto {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid $color-primario;
+    flex-shrink: 0;
+  }
+
+  &__header-info {
+    flex: 1;
+
+    h2 {
+      font-size: 1.5rem;
+      color: $color-texto;
+      margin: 0 0 4px;
+    }
+    .titulo {
+      color: $color-primario;
+      font-weight: 600;
+      margin: 0 0 4px;
+    }
+    .exp {
+      font-size: 0.9rem;
+      color: $color-texto-suave;
+      margin: 0;
+    }
+  }
+
+  &__tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid $color-borde;
+  }
+
+  &__tab {
+    background: none;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+    color: $color-texto-suave;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: color 0.2s, border-color 0.2s;
+
+    &:hover { color: $color-primario; }
+
+    &--activo {
+      color: $color-primario-dark;
+      font-weight: 700;
+      border-bottom-color: $color-primario-dark;
+    }
+  }
+
+  &__body {
+    background: $color-blanco;
+    border-radius: 16px;
+    padding: 2rem;
+    border: 1px solid $color-borde;
+  }
+
+  &__form {
+    h3 {
+      font-size: 1.2rem;
+      color: $color-texto;
+      margin: 0 0 0.5rem;
+    }
+  }
+
+  &__subtitle {
+    color: $color-texto-suave;
+    font-size: 0.9rem;
+    margin: 0 0 1.5rem;
+  }
+
+  &__actions {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+  }
+
+  &__servicios {
+    border-left: 2px solid $color-borde;
+    padding-left: 1.5rem;
+    flex-shrink: 0;
+    min-width: 200px;
+
+    h4 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: $color-texto-suave;
+      margin: 0 0 0.6rem;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+
+      li {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.88rem;
+        color: $color-texto;
+
+        &::before {
+          content: '✓';
+          color: $color-primario;
+          font-weight: 700;
+          font-size: 0.75rem;
+          flex-shrink: 0;
+        }
+      }
+    }
+
+    @media (max-width: 640px) {
+      border-left: none;
+      border-top: 2px solid $color-borde;
+      padding-left: 0;
+      padding-top: 1rem;
+      width: 100%;
+    }
+  }
+
+  &__info-box {
+    background: $color-fondo;
+    border: 1px solid $color-borde;
+    border-left: 3px solid $color-primario-light;
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    margin-top: 1.5rem;
+
+    p {
+      margin: 0;
+      font-size: 0.88rem;
+      color: $color-texto-suave;
+      line-height: 1.5;
+    }
+  }
+}
+
+// Formulario compartido
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 1.25rem;
+
+  label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: $color-texto;
+  }
+
+  input[type='text'],
+  input[type='url'],
+  input[type='number'],
+  input[type='date'],
+  input[type='email'],
+  select,
+  textarea {
+    border: 1.5px solid $color-borde;
+    border-radius: 8px;
+    padding: 0.65rem 0.85rem;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: $color-blanco;
+    transition: border-color 0.2s;
+    resize: vertical;
+
+    &:focus {
+      outline: none;
+      border-color: $color-primario;
+    }
+
+    &:disabled {
+      background: #F5F0EB;
+      cursor: not-allowed;
+    }
+  }
+
+  select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%237A6E68' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.85rem center;
+    padding-right: 2.2rem;
+  }
+}
+
+.char-count {
+  font-size: 0.78rem;
+  color: $color-texto-suave;
+  text-align: right;
+}
+
+.foto-upload {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-top: 8px;
+
+  &__preview {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid $color-borde;
+    flex-shrink: 0;
+  }
+
+  &__controls {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__nombre {
+    font-size: 0.8rem;
+    color: $color-texto-suave;
+    font-style: italic;
+  }
+
+  &__hint {
+    font-size: 0.76rem;
+    color: $color-texto-suave;
+    margin: 0;
+  }
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+// Tarifas
+.tarifas-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.tarifa-grupo {
+  background: $color-fondo-alt;
+  border-radius: 12px;
+  padding: 1.25rem;
+
+  h4 {
+    font-size: 1rem;
+    margin: 0 0 1rem;
+    color: $color-texto;
+  }
+}
+
+.tarifas-resumen {
+  background: $color-fondo;
+  border: 1px solid $color-borde;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-top: 1.5rem;
+
+  &__titulo {
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: $color-texto-suave;
+    letter-spacing: 0.05em;
+    margin: 0 0 0.75rem;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 1.5rem;
+
+    > div {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      padding: 0.25rem 0;
+      border-bottom: 1px solid rgba($color-borde, 0.6);
+    }
+  }
+}
+
+.tarifa-label {
+  color: $color-texto-suave;
+}
+
+.tarifa-val {
+  font-weight: 700;
+  color: $color-texto;
+}
+
+// Solicitud de cambios
+.solicitud-tipos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.solicitud-tipo-card {
+  background: $color-fondo-alt;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+
+  strong {
+    display: block;
+    font-size: 0.9rem;
+    color: $color-texto;
+    margin-bottom: 4px;
+  }
+
+  p {
+    font-size: 0.8rem;
+    color: $color-texto-suave;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  &:hover {
+    border-color: $color-primario-light;
+  }
+
+  &--activo {
+    border-color: $color-primario;
+    background: rgba($color-primario-light, 0.15);
+
+    strong { color: $color-primario-dark; }
+  }
+}
+
+@media (max-width: 640px) {
+  .mi-perf-esp {
+    &__header {
+      flex-direction: column;
+      text-align: center;
+      padding: 1.5rem 1rem;
+    }
+
+    &__tabs {
+      overflow-x: auto;
+    }
+
+    &__tab {
+      padding: 0.65rem 1rem;
+      font-size: 0.88rem;
+      white-space: nowrap;
+    }
+
+    &__body {
+      padding: 1.25rem 1rem;
+    }
+  }
+
+  .form-row { grid-template-columns: 1fr; }
+  .solicitud-tipos { grid-template-columns: 1fr; }
+  .tarifas-resumen__grid { grid-template-columns: 1fr; }
+}

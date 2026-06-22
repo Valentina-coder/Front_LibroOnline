@@ -1,122 +1,72 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+// src/App.jsx
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import Navbar from './components/NavBar/NavBar'               // El Navbar escolar que personalizamos
+import Footer from './components/Footer/Footer'               // Tu componente de pie de página
 
-function App() {
-  const [count, setCount] = useState(0)
+// IMPORTACIÓN DE PÁGINAS (Ecosistema LibrOnline)
+import Login from './pages/Login/Login'
+import Home from './pages/Home' // Tu página de bienvenida pública
 
+// Módulo de Usuarios (El que acabamos de sincronizar con datos mock)
+import UsuarioListPage from './pages/UsuarioListPage'
+import UsuarioFormPage from './pages/UsuarioFormPage'
+
+// Componente Layout para reutilizar el Navbar y Footer de forma limpia
+function Layout({ children }) {
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+      <Navbar />
+      <main className="container my-4" style={{ minHeight: '80vh' }}>
+        {children}
+      </main>
+      <Footer />
     </>
   )
 }
 
-export default App
+export default function App() {
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          {/* 1. RUTAS SIN NAVBAR (Fuera del sistema) */}
+          <Route path="/login" element={<Login />} />
+
+          {/* 2. RUTAS PÚBLICAS CON NAVBAR */}
+          <Route path="/" element={<Layout><Home /></Layout>} />
+
+          {/* 3. RUTAS PROTEGIDAS: DIRECTORES O ADMINISTRADORES (Gestión de Usuarios) */}
+          <Route 
+            path="/usuarios" 
+            element={
+              <PrivateRoute roles={['ADMIN', 'DIRECTOR', 'ADMINISTRADOR']}>
+                <Layout><UsuarioListPage /></Layout>
+              </PrivateRoute>
+            } 
+          />
+          <Route 
+            path="/usuarios/agregar" 
+            element={
+              <PrivateRoute roles={['ADMIN', 'DIRECTOR', 'ADMINISTRADOR']}>
+                <Layout><UsuarioFormPage /></Layout>
+              </PrivateRoute>
+            } 
+          />
+
+          {/* 4. RUTAS PROTEGIDAS: DOCENTES (Marcadores de posición futuros) */}
+          <Route 
+            path="/registrar-asistencia" 
+            element={
+              <PrivateRoute roles={['DOCENTE']}>
+                <Layout><div className="container mt-4"><h2>Módulo Asistencia (Microservicio Asistencia)</h2></div></Layout>
+              </PrivateRoute>
+            } 
+          />
+
+          {/* CATCH-ALL: Cualquier URL inválida redirige al Inicio */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
+  )
+}

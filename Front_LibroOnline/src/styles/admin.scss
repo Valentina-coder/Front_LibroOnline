@@ -1,0 +1,476 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.admin-page {
+  @include section-padding;
+
+  .container { @include container; }
+
+  &__header {
+    @include flex-between;
+    margin-bottom: $spacing-xl;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+
+    h1 { font-family: $font-display; }
+  }
+
+  &__kpis {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $spacing-lg;
+    margin-bottom: $spacing-xl;
+
+    @include tablet { grid-template-columns: repeat(2, 1fr); }
+    @include mobile { grid-template-columns: 1fr; }
+  }
+
+  &__kpi {
+    @include card-base;
+    padding: $spacing-xl;
+    text-align: center;
+
+    .icon { font-size: 2rem; color: $color-primario; margin-bottom: $spacing-sm; }
+    .value { font-family: $font-display; font-size: 2.2rem; font-weight: 700; }
+    .label { font-size: 0.85rem; color: $color-texto-suave; }
+  }
+
+  &__quick-links {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $spacing-md;
+    margin-bottom: $spacing-xl;
+
+    @include tablet { grid-template-columns: repeat(2, 1fr); }
+    @include mobile { grid-template-columns: 1fr; }
+  }
+
+  &__quick-link {
+    @include card-base;
+    padding: $spacing-lg;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    transition: $transition;
+
+    &:hover {
+      border-color: $color-primario;
+      transform: translateY(-2px);
+      box-shadow: $shadow-md;
+    }
+
+    .icon { font-size: 1.8rem; color: $color-primario; margin-bottom: $spacing-sm; }
+    h4 { font-size: 0.95rem; }
+  }
+}
+
+// Tabla admin con acciones
+.admin-table-card {
+  @include card-base;
+  padding: $spacing-xl;
+  overflow: hidden;
+
+  &__header {
+    @include flex-between;
+    margin-bottom: $spacing-lg;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+
+    h2 { font-family: $font-display; font-size: 1.4rem; }
+  }
+}
+
+// Modal de formulario admin
+.admin-modal-form {
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-md;
+
+    @include mobile { grid-template-columns: 1fr; }
+  }
+}
+
+// Admin Panel (overview)
+.admin-panel {
+  &__kpis {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $spacing-lg;
+    margin-bottom: $spacing-xl;
+
+    @include tablet { grid-template-columns: repeat(2, 1fr); }
+    @include mobile { grid-template-columns: 1fr; }
+  }
+
+  &__kpi {
+    @include card-base;
+    padding: $spacing-xl;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    &-label {
+      font-size: 0.82rem;
+      color: $color-texto-suave;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    &-value {
+      font-family: $font-display;
+      font-size: 2rem;
+      font-weight: 700;
+      color: $color-texto;
+    }
+  }
+
+  &__accesos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $spacing-md;
+    margin-bottom: $spacing-xl;
+
+    @include tablet { grid-template-columns: repeat(2, 1fr); }
+    @include mobile { grid-template-columns: 1fr; }
+  }
+
+  &__acceso-card {
+    @include card-base;
+    padding: $spacing-lg;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    transition: $transition;
+
+    &:hover {
+      border-color: $color-primario;
+      transform: translateY(-2px);
+      box-shadow: $shadow-md;
+    }
+
+    h3 {
+      font-size: 1rem;
+      color: $color-texto;
+      margin-bottom: 2px;
+    }
+
+    p {
+      font-size: 0.82rem;
+      color: $color-texto-suave;
+    }
+  }
+
+  &__acceso-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+
+  &__charts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-lg;
+
+    @include mobile { grid-template-columns: 1fr; }
+  }
+
+  &__chart-card {
+    @include card-base;
+    padding: $spacing-xl;
+
+    h3 {
+      font-family: $font-display;
+      font-size: 1.2rem;
+      margin-bottom: $spacing-lg;
+      color: $color-texto;
+    }
+  }
+}
+
+// Admin table pages (Usuarios, Sesiones)
+.admin-table-page {
+  &__filters {
+    display: flex;
+    gap: $spacing-md;
+    margin-bottom: $spacing-lg;
+    flex-wrap: wrap;
+
+    input, select {
+      padding: 8px $spacing-md;
+      border: 1.5px solid $color-borde;
+      border-radius: $radius-md;
+      background: $color-blanco;
+      color: $color-texto;
+      font-family: $font-body;
+      outline: none;
+
+      &:focus { border-color: $color-primario; }
+    }
+
+    input[type='search'] { min-width: 260px; }
+  }
+}
+
+// Admin especialistas grid
+.admin-especialistas {
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: $spacing-lg;
+  }
+
+  &__card {
+    @include card-base;
+    padding: $spacing-lg;
+  }
+
+  &__card-header {
+    display: flex;
+    gap: $spacing-md;
+    align-items: center;
+    margin-bottom: $spacing-md;
+    padding-bottom: $spacing-md;
+    border-bottom: 1px solid $color-borde;
+
+    img {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    h3 { font-size: 1rem; margin-bottom: 2px; }
+    p { font-size: 0.82rem; color: $color-texto-suave; margin-bottom: 4px; }
+  }
+
+  &__servicios {
+    h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: $color-texto-suave;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: $spacing-sm;
+    }
+  }
+
+  &__servicio-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: $spacing-sm;
+  }
+
+  &__servicio-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: $color-fondo;
+    border-radius: $radius-sm;
+    padding: 4px 8px;
+    font-size: 0.82rem;
+
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: $color-error;
+      font-size: 0.9rem;
+      line-height: 1;
+
+      &:hover { opacity: 0.7; }
+    }
+  }
+
+  .sin-servicios {
+    font-size: 0.82rem;
+    color: $color-texto-suave;
+    margin-bottom: $spacing-sm;
+  }
+}
+
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.table-container {
+  overflow-x: auto;
+  border-radius: $radius-md;
+  box-shadow: $shadow-sm;
+}
+
+.btn--sm {
+  padding: 0.3rem 0.8rem !important;
+  font-size: 0.82rem !important;
+}
+
+.btn-danger {
+  background: $color-error;
+  color: white;
+  border: none;
+  padding: 4px 10px;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 600;
+  transition: opacity $transition;
+
+  &:hover { opacity: 0.85; }
+}
+
+// ── Encabezado de página admin (título + botón Nuevo) ──────────────
+.admin-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-lg;
+}
+
+// ── Botón "Nuevo" estandarizado ────────────────────────────────────
+.btn-nuevo {
+  @include btn-primary;
+  padding: 9px $spacing-lg;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+// ── Barra de filtros estandarizada ────────────────────────────────
+.admin-filters {
+  display: flex;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-lg;
+  flex-wrap: wrap;
+  align-items: flex-end;
+
+  &__search {
+    flex: 1;
+    min-width: 220px;
+    padding: 8px 12px;
+    border: 1.5px solid $color-borde;
+    border-radius: $radius-md;
+    background: $color-blanco;
+    color: $color-texto;
+    font-family: $font-body;
+    font-size: 0.88rem;
+    outline: none;
+    transition: border-color 0.2s;
+
+    &:focus { border-color: $color-primario; }
+    &::placeholder { color: $color-texto-suave; }
+  }
+
+  &__select {
+    min-width: 168px;
+    padding: 8px 12px;
+    border: 1.5px solid $color-borde;
+    border-radius: $radius-md;
+    background: $color-blanco;
+    color: $color-texto;
+    font-family: $font-body;
+    font-size: 0.88rem;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+
+    &:focus { border-color: $color-primario; }
+  }
+
+  &__number {
+    width: 110px;
+    padding: 8px 12px;
+    border: 1.5px solid $color-borde;
+    border-radius: $radius-md;
+    background: $color-blanco;
+    color: $color-texto;
+    font-family: $font-body;
+    font-size: 0.88rem;
+    outline: none;
+    transition: border-color 0.2s;
+
+    &:focus { border-color: $color-primario; }
+    &::placeholder { color: $color-texto-suave; }
+  }
+
+  &__select--date {
+    min-width: 148px;
+    cursor: pointer;
+  }
+
+  &__field-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  &__field-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: $color-texto-suave;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    padding-left: 2px;
+  }
+
+  &__limpiar {
+    padding: 8px 14px;
+    background: none;
+    border: 1.5px solid $color-borde;
+    border-radius: $radius-md;
+    color: $color-texto-suave;
+    font-family: $font-body;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+
+    &:hover {
+      border-color: $color-error;
+      color: $color-error;
+      background: rgba(192, 57, 43, 0.05);
+    }
+  }
+}
+
+// ── Botones de acción en tabla — grilla 2×2 ───────────────────────
+.admin-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  width: fit-content;
+
+  &__btn {
+    padding: 5px 8px;
+    min-width: 82px;
+    font-family: $font-ui;
+    font-size: 0.77rem;
+    font-weight: 600;
+    border: none;
+    border-radius: $radius-sm;
+    cursor: pointer;
+    white-space: nowrap;
+    text-align: center;
+    line-height: 1.4;
+    transition: opacity 0.15s;
+
+    &:hover:not(:disabled) { opacity: 0.82; }
+    &:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    &--editar     { background: $color-primario;    color: #fff; }
+    &--activar    { background: $color-primario;    color: #fff; }
+    &--confirmar  { background: #5A8F6B;             color: #fff; }
+    &--desactivar { background: $color-advertencia; color: #fff; }
+    &--cancelar   { background: $color-error;        color: #fff; }
+    &--contrasena { background: #6E8FA8;             color: #fff; }
+    &--cambiar    { background: #6E8FA8;             color: #fff; }
+    &--eliminar   { background: $color-error;        color: #fff; }
+  }
+}

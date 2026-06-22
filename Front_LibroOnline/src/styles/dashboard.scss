@@ -1,0 +1,222 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.dashboard {
+  &__kpis {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $spacing-lg;
+    margin-bottom: $spacing-xl;
+
+    @include tablet { grid-template-columns: repeat(2, 1fr); }
+    @include mobile { grid-template-columns: 1fr; }
+  }
+
+  &__kpi {
+    @include card-base;
+    padding: $spacing-xl;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    &-label {
+      font-size: 0.82rem;
+      color: $color-texto-suave;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    &-value {
+      font-family: $font-display;
+      font-size: 2rem;
+      font-weight: 700;
+      color: $color-texto;
+      line-height: 1.1;
+    }
+
+    &-cambio {
+      font-size: 0.82rem;
+      font-weight: 600;
+
+      &.pos { color: $color-exito; }
+      &.neg { color: $color-error; }
+    }
+  }
+
+  &__charts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-lg;
+    margin-bottom: $spacing-lg;
+
+    @include mobile { grid-template-columns: 1fr; }
+  }
+
+  &__chart-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    &--full {
+      margin-bottom: $spacing-xl;
+    }
+  }
+
+  &__chart-card {
+    @include card-base;
+    padding: $spacing-xl;
+    flex: 1;
+
+    h3 {
+      font-family: $font-display;
+      font-size: 1.2rem;
+      margin-bottom: $spacing-lg;
+      color: $color-texto;
+    }
+
+    &--full {
+      width: 100%;
+    }
+  }
+
+  &__year-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-sm;
+    padding: 10px 0 $spacing-lg;
+
+    span {
+      font-family: $font-display;
+      font-size: 1rem;
+      font-weight: 700;
+      color: $color-texto;
+      min-width: 48px;
+      text-align: center;
+    }
+
+    button {
+      background: none;
+      border: 1.5px solid $color-borde;
+      border-radius: $radius-sm;
+      width: 30px;
+      height: 30px;
+      font-size: 1.3rem;
+      cursor: pointer;
+      color: $color-texto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      transition: $transition;
+
+      &:hover {
+        background: $color-primario;
+        color: white;
+        border-color: $color-primario;
+      }
+    }
+  }
+
+  &__tabla-section {
+    @include card-base;
+    padding: $spacing-xl;
+
+    h3 {
+      font-family: $font-display;
+      font-size: 1.2rem;
+      margin-bottom: $spacing-lg;
+      color: $color-texto;
+    }
+  }
+}
+
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.dashboard-page {
+  @include section-padding;
+
+  .container { @include container; }
+
+  &__header {
+    margin-bottom: $spacing-xl;
+
+    h1 { font-family: $font-display; }
+    p  { color: $color-texto-suave; }
+  }
+
+  &__kpis {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $spacing-lg;
+    margin-bottom: $spacing-xl;
+
+    @include tablet { grid-template-columns: repeat(2, 1fr); }
+    @include mobile { grid-template-columns: 1fr; }
+  }
+
+  &__kpi {
+    @include card-base;
+    padding: $spacing-xl;
+
+    &-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: $radius-md;
+      background: rgba($color-primario, 0.12);
+      @include flex-center;
+      font-size: 1.4rem;
+      color: $color-primario;
+      margin-bottom: $spacing-md;
+    }
+
+    &-value {
+      font-family: $font-display;
+      font-size: 2rem;
+      font-weight: 700;
+      color: $color-texto;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    &-label {
+      font-size: 0.85rem;
+      color: $color-texto-suave;
+    }
+  }
+
+  &__charts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-lg;
+    margin-bottom: $spacing-xl;
+
+    @include mobile { grid-template-columns: 1fr; }
+  }
+
+  &__chart-card {
+    @include card-base;
+    padding: $spacing-xl;
+
+    h3 {
+      font-family: $font-display;
+      font-size: 1.3rem;
+      margin-bottom: $spacing-lg;
+    }
+  }
+
+  &__table-card {
+    @include card-base;
+    padding: $spacing-xl;
+
+    h3 {
+      font-family: $font-display;
+      font-size: 1.3rem;
+      margin-bottom: $spacing-lg;
+    }
+  }
+}

@@ -1,0 +1,54 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.mis-pacientes {
+  @include section-padding;
+
+  .container { @include container; }
+
+  &__header {
+    @include flex-between;
+    margin-bottom: $spacing-xl;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+  }
+
+  &__filters {
+    display: flex;
+    gap: $spacing-md;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: $spacing-lg;
+
+    select, input {
+      padding: 8px $spacing-md;
+      border: 1.5px solid $color-borde;
+      border-radius: $radius-md;
+      background: $color-blanco;
+      color: $color-texto;
+      font-family: $font-body;
+      outline: none;
+
+      &:focus { border-color: $color-primario; }
+    }
+  }
+
+  .actions {
+    display: flex;
+    gap: $spacing-xs;
+
+    button {
+      padding: 4px 10px;
+      border-radius: $radius-sm;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: $transition;
+      border: 1.5px solid;
+
+      &.btn-confirmar  { color: $color-exito;     border-color: $color-exito;     &:hover { background: $color-exito;     color: #fff; } }
+      &.btn-completar  { color: #1E40AF;           border-color: #1E40AF;          &:hover { background: #1E40AF;          color: #fff; } }
+      &.btn-cancelar   { color: $color-error;      border-color: $color-error;     &:hover { background: $color-error;     color: #fff; } }
+    }
+  }
+}

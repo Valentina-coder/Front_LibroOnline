@@ -1,0 +1,119 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.nosotros-historia {
+  @include section-padding;
+
+  .container { @include container; }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-xxl;
+    align-items: center;
+
+    @include mobile { grid-template-columns: 1fr; }
+  }
+
+  p { color: $color-texto-suave; margin-bottom: $spacing-md; line-height: 1.8; }
+}
+
+.nosotros-mv {
+  @include section-padding;
+  background: $color-fondo-alt;
+
+  .container { @include container; }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-xl;
+
+    @include mobile { grid-template-columns: 1fr; }
+  }
+
+  &__card {
+    @include card-base;
+    padding: $spacing-xl;
+    text-align: center;
+
+    .icon {
+      font-size: 2.5rem;
+      color: $color-primario;
+      margin-bottom: $spacing-md;
+    }
+
+    h3 { margin-bottom: $spacing-sm; font-family: $font-display; }
+    p  { color: $color-texto-suave; }
+  }
+}
+
+.nosotros-pilares {
+  @include section-padding;
+
+  .container { @include container; }
+
+  &__header { text-align: center; margin-bottom: $spacing-xl; }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-lg;
+
+    @include tablet { grid-template-columns: repeat(2, 1fr); }
+    @include mobile { grid-template-columns: 1fr; }
+  }
+
+  &__item {
+    @include card-base;
+    padding: $spacing-lg;
+
+    .icon { font-size: 2rem; color: $color-primario; margin-bottom: $spacing-sm; }
+    h4 { margin-bottom: $spacing-xs; }
+    p  { font-size: 0.9rem; color: $color-texto-suave; }
+  }
+}
+
+.nosotros-ubicacion {
+  @include section-padding;
+  background: $color-fondo-alt;
+
+  .container { @include container; }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: $spacing-xl;
+
+    @include mobile { grid-template-columns: 1fr; }
+  }
+
+  &__info {
+    h3 { margin-bottom: $spacing-lg; }
+    .info-item {
+      display: flex;
+      gap: $spacing-sm;
+      align-items: flex-start;
+      margin-bottom: $spacing-md;
+      color: $color-texto-suave;
+
+      .icon { color: $color-primario; flex-shrink: 0; margin-top: 2px; }
+    }
+  }
+
+  &__map {
+    background: $color-borde;
+    border-radius: $radius-md;
+    overflow: hidden;
+    min-height: 350px;
+    @include flex-center;
+    color: $color-texto-suave;
+    font-size: 1rem;
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  }
+}
